@@ -1,0 +1,35 @@
+<h1>Flights</h1>
+<h2>Search</h2>
+<%= form_with url: '/flights/search', method: :get do |form| %>
+  <%= form.label :origin_id, 'From' %>
+  <%= form.select :origin_id, @airport_options %><br>
+  <%= form.label :destination_id, 'To' %>
+  <%= form.select :destination_id, @airport_options %><br>
+  <%= form.label :passengers %>
+  <%= form.select :passengers, [['1', 1], ['2', 2], ['3', 3], ['4', 4]] %><br>
+  <%= form.label :date %>
+  <%= form.select :date, @available_dates %><br>
+  <%= form.submit 'Search' %>
+<% end %>
+
+<h2>Available Flights</h2>
+<% unless @available_flights.length.zero? %>
+<table id="flights-table">
+  <tr>
+    <th>Origin</th>
+    <th>Destination</th>
+    <th>Date</th>
+    <th>Flight Time</th>
+  </tr>
+  <% @available_flights.each do |flight| %>
+  <tr>
+    <td><%= flight.origin.code %></td>
+    <td><%= flight.destination.code %></td>
+    <td><%= flight.date %></td>
+    <td><%= flight.duration %></td>
+  </tr>
+  <% end %>
+</table>
+<% else %>
+  <p>No flights available for that search.</p>
+<% end%>
