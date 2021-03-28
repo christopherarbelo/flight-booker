@@ -11,11 +11,14 @@
   <%= form.select :date, @available_dates %><br>
   <%= form.submit 'Search' %>
 <% end %>
-
+<hr>
 <h2>Available Flights</h2>
 <% unless @available_flights.length.zero? %>
+
+<%= form_with url: '/bookings/new', method: :get do |form| %>
 <table id="flights-table">
   <tr>
+    <th>Select</th>
     <th>Origin</th>
     <th>Destination</th>
     <th>Date</th>
@@ -23,6 +26,8 @@
   </tr>
   <% @available_flights.each do |flight| %>
   <tr>
+    <input type="hidden" name="passengers" value="<%= @passenger_count %>">
+    <td><input type="radio" id="<%= flight.id %>" name="flight-selection" value="<%= flight.id %>"></td>
     <td><%= flight.origin.code %></td>
     <td><%= flight.destination.code %></td>
     <td><%= flight.date %></td>
@@ -30,6 +35,8 @@
   </tr>
   <% end %>
 </table>
+<%= form.submit 'Continue' %>
+<% end %>
 <% else %>
   <p>No flights available for that search.</p>
 <% end%>
