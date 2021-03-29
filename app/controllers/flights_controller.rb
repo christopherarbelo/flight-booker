@@ -13,8 +13,4 @@ class FlightsController < ApplicationController
   def search_params
     params.permit(:origin_id, :destination_id, :date)
   end
-
-  def legal_flight_search
-    !(params[:origin_id].blank? && params[:destination_id].blank? && params[:date].blank?)
-  end
 end
