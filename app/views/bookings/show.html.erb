@@ -1,0 +1,23 @@
+<h1>Booking</h1>
+
+<table id="booking">
+  <tr>
+    <th>Origin</th>
+    <th>Destination</th>
+    <th>Date</th>
+    <th>Flight Time</th>
+  </tr>
+  <tr>
+    <td><%= @booking.flight.origin.name %></td>
+    <td><%= @booking.flight.destination.name %></td>
+    <td><%= @booking.flight.date %></td>
+    <td><%= @booking.flight.duration %></td>
+  </tr>
+</table>
+
+<h2>Passengers</h2>
+<ul>
+  <% @booking.passengers.each do |passenger| %>
+  <li><%= passenger.name %></li>
+  <% end %>
+</ul>

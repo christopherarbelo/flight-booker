@@ -1,0 +1,30 @@
+<h1>Booking</h1>
+
+<table id="booking">
+  <tr>
+    <th>Origin</th>
+    <th>Destination</th>
+    <th>Date</th>
+    <th>Flight Time</th>
+    <th>Passengers</th>
+  </tr>
+  <tr>
+    <td><%= @flight.origin.name %></td>
+    <td><%= @flight.destination.name %></td>
+    <td><%= @flight.date %></td>
+    <td><%= @flight.duration %></td>
+    <td><%= @passenger_count %></td>
+  </tr>
+</table>
+
+<h2>Passenger Information</h2><br>
+<%= form_with model: @booking do |form| %>
+  <%= form.hidden_field :flight_id, value: @flight.id %>
+<%= form.fields_for :passengers do |passenger_form| %>
+  <%= passenger_form.label :name %>
+  <%= passenger_form.text_field :name %>
+  <%= passenger_form.label :email %>
+  <%= passenger_form.text_field :email %><br>
+<% end %>
+<%= form.submit 'Confirm Booking' %>
+<% end %>
