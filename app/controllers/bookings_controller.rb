@@ -19,6 +19,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
 
     if @booking.save
+      email_passengers @booking.passengers
       flash[:success] = 'Booking confirmed!'
       redirect_to booking_path(@booking.id)
     else
@@ -30,5 +31,11 @@ class BookingsController < ApplicationController
   private
   def booking_params
     params.require(:booking).permit(:flight_id, passengers_attributes: [:name, :email])
+  end
+
+  def email_passengers(passengers)
+    passengers.each do |passenger|
+      PassengerMailer.with(passenger: passenger).thank_you_email.deliver_now
+    end
   end
 end
